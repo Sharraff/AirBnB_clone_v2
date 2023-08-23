@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from os import environ
 
+
 storage_engine = environ.get("HBNB_TYPE_STORAGE")
 
 if (storage_engine == "db"):
@@ -49,6 +50,7 @@ class BaseModel():
         storage.save()
 
     def to_dict(self):
+        """Convert instance into dict format"""
         custom = self.__dict__.copy()
         custom_dict = {}
         custom_dict.update({"__class__": self.__class__.__name__})
