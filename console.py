@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import shlex
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -113,37 +114,38 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, arg):
+    def do_create(self, args):
         """ Create an object of any class"""
-        parameters = {}
-        args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
             return
-        active_classes = args[0]
-        if active_classes not in HBNBCommand.classes:
-            print("** class dosen't exist **")
-            return
-        for param in args[1:]:
-            if '=' not in param:
-                continue
-            key, value = param.split('=', 1)
-            if value[0] == '"' and value[-1] == '"':
-                value = value[1:-1].replace('_', ' ')
-            elif '.' in value:
-                try:
-                    value = float(value)
-                except ValueError:
-                    continue
-            else:
-                try:
-                    value = int(value)
-                except ValueError:
-                    continue
-            parameters[key] = value
-        new = HBNBCommand.classes[active_classes](**parameters)
-        new.save()
-        print(new.id)
+        elif len(args) == 1:
+            try:
+                args = shlex.split(args)
+                new_instance = eval(args[0])()
+                new_instance.save()
+                print(new_instance.id)
+
+            except:
+                print("** class doesn't exist **")
+        else:
+            try:
+                args = shlex.split(args)
+                name = args.pop(0)
+                obj = eval(name)()
+                for arg in args:
+                    arg = arg.split('=')
+                    if hasattr(obj, arg[0]):
+                        try:
+                            arg[1] = eval(arg[1])
+                        except:
+                            arg[1] = arg[1].replace('_',' ')
+                        setattr(obj, arg[0], arg[1])
+
+                obj.save()
+            except:
+                return
+            print(obj.id)
 
     def help_create(self):
         """ Help information for the create method """
