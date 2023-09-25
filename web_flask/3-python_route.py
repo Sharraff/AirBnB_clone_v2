@@ -12,6 +12,7 @@ app = Flask(__name__)
 def hello_world():
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def HBNB():
     """
@@ -19,12 +20,14 @@ def HBNB():
     """
     return "HBNB"
 
+
 @app.route('/c/<text>', strict_slashes=False)
 def text(text):
     """
     return text given
     """
     return "C {}".format(text.replace("_", " "))
+
 
 @app.route('python/', defaults={'text': 'is_cool'})
 @app.route('/python/<text>', strict_slashes=False)

@@ -14,6 +14,7 @@ def teardown_db(exception):
         storage.close()
 
 
+
 @app.route("/states_list", strict_slashes=False)
 def states_list():
     """ list of state ids"""

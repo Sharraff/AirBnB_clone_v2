@@ -12,12 +12,14 @@ app = Flask(__name__)
 def hello_world():
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def HBNB():
     """
     return HBNB
     """
     return "HBNB"
+
 
 @app.route('/c/<text>', strict_slashes=False)
 def text(text):
@@ -26,6 +28,7 @@ def text(text):
     """
     return "C {}".format(text.replace("_", " "))
 
+
 @app.route('/python/', defaults={'text': 'is_cool'})
 @app.route('/python/<text>', strict_slashes=False)
 def display(text):
@@ -33,6 +36,7 @@ def display(text):
     display "python", followed by the value of text
     """
     return "Python {}".format(text.replace("_", " "))
+
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def num_display(n):
