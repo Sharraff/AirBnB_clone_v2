@@ -6,10 +6,10 @@ do_deploy
 import os
 from fabric.api import run, env, cd, put
 
-env.hosts = ['100.25.30.179', '54.87.238.34']
+env.hosts = ['54.144.133.188', '18.209.152.80']
 env.user = "ubuntu"
-env.key_filename = "~/.ssh/id_rsa"
-
+# env.key_filename = "~/.ssh/id_rsa"
+# env.forward_agent = True
 
 def do_deploy(archive_path):
     """This function distributes an archive to web servers"""
