@@ -37,5 +37,6 @@ def display(text):
     """
     return "Python {}".format(text.replace("_", " "))
 
+
 if __name__ == "__main__":
     app.run()
